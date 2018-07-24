@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login form to create an account and acquire a token</title>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
+</head>
+<body>
+ <div id="firebaseui-auth-container"></div>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD6TZAhvvrop32H5V6t96dCFOd3LGQ7um4",
+    authDomain: "demoapi-3c0a8.firebaseapp.com",
+    databaseURL: "https://demoapi-3c0a8.firebaseio.com",
+    projectId: "demoapi-3c0a8",
+    storageBucket: "demoapi-3c0a8.appspot.com",
+    messagingSenderId: "488976297611"
+  };
+  firebase.initializeApp(config);
+
+  // FirebaseUI config.
+  var uiConfig = {
+    signInOptions: [
+      // Leave the lines as is for the providers you want to offer your users.
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    ],
+    signInSuccessUrl: "/",
+    callbacks: {
+      signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+        console.log(authResult);
+        return false;
+      }
+    }
+  };
+
+  // Initialize the FirebaseUI Widget using Firebase.
+  var ui = new firebaseui.auth.AuthUI(firebase.auth());
+  // The start method will wait until the DOM is loaded.
+  ui.start('#firebaseui-auth-container', uiConfig);
+</script>
+</html>

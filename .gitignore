@@ -1,0 +1,14 @@
+# Private files that shouldn't go to git
+private
+
+# Dependencies
+node_modules
+
+# Generated AWS lambda instanse configuration
+claudia.json
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen

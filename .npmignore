@@ -1,0 +1,8 @@
+# Generated AWS lambda instanse configuration
+claudia.json
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen

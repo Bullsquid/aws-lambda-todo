@@ -1,7 +1,7 @@
-const admin = require("firebase-admin");
+const admin = require('firebase-admin');
 
 module.exports = function (req, res, next) {
-  const idToken = req.header("Authorization");
+  const idToken = req.header('Authorization');
   try {
     admin.auth().verifyIdToken(idToken).then(decodedToken => {
       req.user = decodedToken;
@@ -11,6 +11,6 @@ module.exports = function (req, res, next) {
       next();
     });
   } catch (err) {
-    next()
+    next();
   }
 };

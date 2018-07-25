@@ -14,9 +14,12 @@ router.post('/', validate(validation.createTask), function (req, res) {
   const userId = req.user.uid;
   const ref = database.ref(`tasks/${userId}`);
   const body = req.body;
+  const now = Date.now();
   const task = {
     title: body.title,
-    completed: false
+    completed: false,
+    createdAt: now,
+    updatedAt: now
   };
   if (body.description) {
     task.description = body.description;
@@ -69,7 +72,9 @@ router.put('/:taskId', validate(validation.updateTask), function (req, res) {
   const taskId = req.params.taskId;
   const ref = database.ref(`tasks/${userId}/${taskId}`);
   const body = req.body;
-  const updates = {};
+  const updates = {
+    updatedAt: Date.now()
+  };
   if (body.title) {
     updates.title = body.title;
   }

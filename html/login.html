@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Login form to create an account and acquire a token</title>
-    <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.2.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.2.0/firebaseui.css" />
 </head>
 <body>
- <div id="firebaseui-auth-container"></div>
+  <div id="results"></div>
+  <div id="firebaseui-auth-container"></div>
 </body>
 
 <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
@@ -30,10 +31,20 @@
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
     ],
-    signInSuccessUrl: "/",
     callbacks: {
       signInSuccessWithAuthResult: function(authResult, redirectUrl) {
         console.log(authResult);
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(token) {
+          document.getElementById("results").innerHTML = `
+              <p>Add this header to your requests: </p>
+              <p>Authorization: Bearer ${token}</p>
+        `;
+        }).catch(function(error) {
+          console.error(error);
+          document.getElementById("results").innerHTML = `
+          <p>An error occurred. :(</p>
+          `
+        });
         return false;
       }
     }

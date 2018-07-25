@@ -17,10 +17,12 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
+app.use(auth);
+
 // Routes
 app.use('/auth', require('./routes/auth'));
-app.use('/', auth, require('./routes/index'));
 app.use('/tasks', require('./routes/tasks'));
+app.use('/', require('./routes/index'));
 
 app.use((err, req, res, next) => {
   // specific for validation errors

@@ -33,3 +33,44 @@ Where `eu-central-1` is your [selected region](https://docs.aws.amazon.com/gener
 ### Push new code to existing lambda
 
 After you've used `claudia create` and have `claudia.json` file generated, you can use `nmp run deploy`
+
+## API Reference
+
+### Authentication
+
+Get an auth token using Firebase SDK (sample page is located under `/auth/login.html`)  
+Send this token with every requests in a header:
+```
+Authorization: Bearer TOKEN
+```
+
+### Tasks
+**Create a new task**  
+POST `/tasks`  
+Body:
+```
+{
+  "title": "Title of a task",
+  "description": "Description of a task (optional)"
+}
+```
+
+**Get a list of your tasks**  
+GET `/tasks`
+
+**Get a single task**  
+GET `/tasks/:taskId`
+
+**Partial update a task**  
+PUT `/tasks/:taskId`  
+Body:
+```
+{
+  "title": "Title of a task",
+  "description": "Description of a task (optional)",
+  "completed": true
+}
+```
+
+**Delete a task**  
+DELETE `/tasks/:taskId`
